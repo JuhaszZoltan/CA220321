@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CA220321
 {
-    internal interface IVanHelye
+    internal interface ICella
     {
         (int S, int O) Hely { get; set; }
     }

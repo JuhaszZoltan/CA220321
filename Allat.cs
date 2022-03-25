@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CA220321
 {
-    internal abstract class Allat : IVanHelye
+    internal abstract class Allat : ICella
     {
         public int Eletkor { get; set; }
         public int MaxEletkor { get; set; }
@@ -17,16 +17,12 @@ namespace CA220321
         protected int EveSzaporodott { get; set; } = 0;
         public abstract bool Ivarerett { get; }
         public Szavanna Szavanna { get; set; }
-        public void Oregszik()
-        {
-            throw new NotImplementedException();
-        }
 
-        private List<IVanHelye> KornyezoMezok
+        private List<ICella> KornyezoMezok
         {
             get
             {
-                var kornyezoMezok = new List<IVanHelye>();
+                var kornyezoMezok = new List<ICella>();
 
                 var ko = this.Hely.S == 0 ? 0 : this.Hely.S - 1;
                 var ks = this.Hely.O == 0 ? 0 : this.Hely.O - 1;
@@ -50,7 +46,6 @@ namespace CA220321
                 return kornyezoMezok;
             }
         }
-
         private List<Allat> KornyezoHimek
         {
             get
@@ -67,7 +62,6 @@ namespace CA220321
                 return kornyezoHimek;
             }
         }
-
         protected bool TudSzulni
         {
             get
@@ -82,13 +76,28 @@ namespace CA220321
                 return true;
             }
         }
-
         public abstract Allat Szul();
         public abstract bool Eszik();
 
-        public void Mozog()
+        public bool Mozog((int s, int o) hova)
         {
-            throw new NotImplementedException();
+            if (this.Szavanna.Terulet[hova.s, hova.o] is Fu)
+            {
+                int uresedo_s = this.Hely.S;
+                int uresedo_o = this.Hely.O;
+                this.Szavanna.Terulet[hova.s, hova.o] = this;
+                this.Hely = (hova.s, hova.o);
+                this.Szavanna.Terulet[uresedo_s, uresedo_o] = new Fu(uresedo_s,uresedo_o);
+                return true;
+            }
+            return false;
+        }
+
+        public Allat(int h_sor, int h_oszlop, Szavanna szavanna)
+        {
+            this.Hely = (h_sor, h_oszlop);
+            this.Szavanna = szavanna;
+            this.Szavanna.Terulet[h_sor, h_oszlop] = this;
         }
     }
 }

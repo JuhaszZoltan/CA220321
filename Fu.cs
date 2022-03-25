@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace CA220321
 {
-    internal class Fu : IVanHelye
+    internal class Fu : ICella
     {
         public (int S, int O) Hely { get; set; }
+
+        public Fu(int sor, int oszlop)
+        {
+            this.Hely = (sor, oszlop);
+        }
     }
 }

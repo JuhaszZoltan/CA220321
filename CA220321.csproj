@@ -45,7 +45,7 @@
   <ItemGroup>
     <Compile Include="Allat.cs" />
     <Compile Include="Fu.cs" />
-    <Compile Include="IVanHelye.cs" />
+    <Compile Include="ICella.cs" />
     <Compile Include="Novenyevo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

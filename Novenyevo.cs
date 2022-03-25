@@ -16,5 +16,11 @@ namespace CA220321
         {
             throw new NotImplementedException();
         }
+
+        public Novenyevo((int sor, int oszlop) hely, Szavanna szavanna) :
+            base(hely.sor, hely.oszlop, szavanna)
+        { 
+
+        }
     }
 }

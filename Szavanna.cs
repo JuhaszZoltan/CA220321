@@ -10,15 +10,27 @@ namespace CA220321
     {
         private static Random rnd = new Random();
 
-        public IVanHelye[,] Terulet { get; set; }
+        public ICella[,] Terulet { get; set; }
+        public List<Allat> Allatok
+        {
+            get
+            {
+                var allatok = new List<Allat>();
+                foreach (var c in Terulet)
+                {
+                    if (c is Allat) allatok.Add(c as Allat);
+                }
+                return allatok;
+            }
+        }
         public Szavanna(int sorokSzama, int oszlopokSzama)
         {
-            this.Terulet = new IVanHelye[oszlopokSzama, sorokSzama];
-            for (int o = 0; o < Terulet.GetLength(0); o++)
+            this.Terulet = new ICella[oszlopokSzama, sorokSzama];
+            for (int s = 0; s < Terulet.GetLength(0); s++)
             {
-                for (int s = 0; s < Terulet.GetLength(1); s++)
+                for (int o = 0; o < Terulet.GetLength(1); o++)
                 {
-                    Terulet[o, s] = new Fu();
+                    Terulet[s, o] = new Fu(s, o);
                 }
             }
         }
@@ -33,9 +45,13 @@ namespace CA220321
                 {
                     if (rnd.Next(100) < 65)
                     {
-                        Terulet[s, o] = new Novenyevo();
+                        new Novenyevo(
+                            hely: (s, o),
+                            szavanna: this);
                     }
-                    else Terulet[s, o] = new Ragadozo();
+                    else new Ragadozo(
+                        hely: (s, o),
+                        szavanna: this);
                     i++;
                 }
             }
