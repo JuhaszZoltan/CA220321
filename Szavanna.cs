@@ -26,16 +26,16 @@ namespace CA220321
         {
             for (int i = 0; i < 200; )
             {
-                int o = rnd.Next(Terulet.GetLength(0));
-                int s = rnd.Next(Terulet.GetLength(1));
+                int s = rnd.Next(Terulet.GetLength(0));
+                int o = rnd.Next(Terulet.GetLength(1));
 
-                if (Terulet[o, s] is Fu)
+                if (Terulet[s, o] is Fu)
                 {
                     if (rnd.Next(100) < 65)
                     {
-                        Terulet[o, s] = new Novenyevo();
+                        Terulet[s, o] = new Novenyevo();
                     }
-                    else Terulet[o, s] = new Ragadozo();
+                    else Terulet[s, o] = new Ragadozo();
                     i++;
                 }
             }
@@ -43,21 +43,21 @@ namespace CA220321
         }
         public void Megjelenites()
         {
-            for (int o = 0; o < Terulet.GetLength(0); o++)
+            for (int s = 0; s < Terulet.GetLength(0); s++)
             {
-                for (int s = 0; s < Terulet.GetLength(1); s++)
+                for (int o = 0; o < Terulet.GetLength(1); o++)
                 {
-                    if (Terulet[o, s] is Ragadozo)
+                    if (Terulet[s, o] is Ragadozo)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.Write("R");
                     }
-                    else if (Terulet[o, s] is Teszt)
+                    else if (Terulet[s, o] is Teszt)
                     {
                         Console.ForegroundColor = ConsoleColor.Blue;
                         Console.Write("T");
                     }
-                    else if (Terulet[o, s] is Novenyevo)
+                    else if (Terulet[s, o] is Novenyevo)
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.Write("N");

@@ -13,7 +13,7 @@ namespace CA220321
         public int Ehseg { get; set; }
         public bool Nem { get; set; }
         public bool El { get; set; }
-        public (int O, int S) Hely { get; set; }
+        public (int S, int O) Hely { get; set; }
         protected int EveSzaporodott { get; set; } = 0;
         public abstract bool Ivarerett { get; }
         public Szavanna Szavanna { get; set; }
@@ -28,22 +28,22 @@ namespace CA220321
             {
                 var kornyezoMezok = new List<IVanHelye>();
 
-                var ko = this.Hely.O == 0 ? 0 : this.Hely.O - 1;
-                var ks = this.Hely.S == 0 ? 0 : this.Hely.S - 1;
-                var vo = this.Hely.O == this.Szavanna.Terulet.GetLength(0) - 1
+                var ko = this.Hely.S == 0 ? 0 : this.Hely.S - 1;
+                var ks = this.Hely.O == 0 ? 0 : this.Hely.O - 1;
+                var vo = this.Hely.S == this.Szavanna.Terulet.GetLength(0) - 1
                     ? this.Szavanna.Terulet.GetLength(0) - 1
-                    : this.Hely.O + 1;
-                var vs = this.Hely.S == this.Szavanna.Terulet.GetLength(1) - 1
-                    ? this.Szavanna.Terulet.GetLength(1) - 1
                     : this.Hely.S + 1;
+                var vs = this.Hely.O == this.Szavanna.Terulet.GetLength(1) - 1
+                    ? this.Szavanna.Terulet.GetLength(1) - 1
+                    : this.Hely.O + 1;
 
-                for (int o = ko; o <= vo; o++)
+                for (int s = ko; s <= vo; s++)
                 {
-                    for (int s = ks; s <= vs; s++)
+                    for (int o = ks; o <= vs; o++)
                     {
-                        if (o != this.Hely.O || s != this.Hely.S)
+                        if (s != this.Hely.O || o != this.Hely.S)
                         {
-                            kornyezoMezok.Add(this.Szavanna.Terulet[o, s]);
+                            kornyezoMezok.Add(this.Szavanna.Terulet[s, o]);
                         }
                     }
                 }

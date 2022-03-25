@@ -8,6 +8,6 @@ namespace CA220321
 {
     internal interface IVanHelye
     {
-        (int O, int S) Hely { get; set; }
+        (int S, int O) Hely { get; set; }
     }
 }

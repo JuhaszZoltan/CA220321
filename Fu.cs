@@ -8,6 +8,6 @@ namespace CA220321
 {
     internal class Fu : IVanHelye
     {
-        public (int O, int S) Hely { get; set; }
+        public (int S, int O) Hely { get; set; }
     }
 }

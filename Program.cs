@@ -13,8 +13,7 @@ namespace CA220321
             var szavanna = new Szavanna(40, 20);
             szavanna.Benepesites();
 
-            szavanna.Terulet[4, 10] = new Teszt();
-            //TODO: MINDENHOL 'sor't kicserélni 'oszlop'ra, mert így stzar
+            szavanna.Terulet[10, 4] = new Teszt();
 
             szavanna.Megjelenites();
         }
@@ -22,6 +21,6 @@ namespace CA220321
 
     internal class Teszt : IVanHelye
     {
-        public (int O, int S) Hely { get; set; }
+        public (int S, int O) Hely { get; set; }
     }
 }
