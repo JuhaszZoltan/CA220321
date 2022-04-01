@@ -8,11 +8,13 @@ namespace CA220321
 {
     internal abstract class Allat : ICella
     {
-        public int Eletkor { get; set; }
+        protected static Random _rnd = new Random();
+
+        public int Eletkor { get; set; } = 0;
         public int MaxEletkor { get; set; }
-        public int Ehseg { get; set; }
+        public int Ehseg { get; set; } = 0;
         public bool Nem { get; set; }
-        public bool El { get; set; }
+        public bool El { get; set; } = true;
         public (int S, int O) Hely
         {
             get
@@ -32,7 +34,7 @@ namespace CA220321
         public abstract bool Ivarerett { get; }
         public Szavanna Szavanna { get; set; }
 
-        private List<ICella> KornyezoMezok
+        protected List<ICella> KornyezoMezok
         {
             get
             {
@@ -90,24 +92,33 @@ namespace CA220321
                 return true;
             }
         }
-        public abstract Allat Szul();
+        public abstract void Szul();
         public abstract bool Eszik();
 
-        public bool Mozog((int s, int o) hova)
+        public bool Mozog()
         {
-            if (this.Szavanna.Terulet[hova.s, hova.o] is Fu)
+            var uresMezok = this.KornyezoMezok
+                .Where(m => m is Fu)
+                .Select(f => f.Hely)
+                .ToList();
+            
+            if (uresMezok.Count > 0)
             {
+                var hova = uresMezok[_rnd.Next(uresMezok.Count)];
+
                 int uresedo_s = this.Hely.S;
                 int uresedo_o = this.Hely.O;
-                this.Szavanna.Terulet[hova.s, hova.o] = this;
+                this.Szavanna.Terulet[hova.S, hova.O] = this;
                 this.Szavanna.Terulet[uresedo_s, uresedo_o] = new Fu(uresedo_s,uresedo_o);
                 return true;
             }
             return false;
         }
 
-        public Allat(int h_sor, int h_oszlop, Szavanna szavanna)
+        public Allat(int h_sor, int h_oszlop, Szavanna szavanna, int maxEletkor, bool nem)
         {
+            MaxEletkor = maxEletkor;
+            Nem = nem;
             this.Szavanna = szavanna;
             this.Szavanna.Terulet[h_sor, h_oszlop] = this;
         }

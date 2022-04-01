@@ -47,11 +47,15 @@ namespace CA220321
                     {
                         new Novenyevo(
                             hely: (s, o),
-                            szavanna: this);
+                            szavanna: this,
+                            maxEletkor: rnd.Next(11, 15),
+                            nem: rnd.Next(100) < 50);
                     }
                     else new Ragadozo(
                         hely: (s, o),
-                        szavanna: this);
+                        szavanna: this,
+                        maxEletkor: rnd.Next(9, 13),
+                        nem: rnd.Next(100) < 50);
                     i++;
                 }
             }
