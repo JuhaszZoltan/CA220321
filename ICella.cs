@@ -8,6 +8,6 @@ namespace CA220321
 {
     internal interface ICella
     {
-        (int S, int O) Hely { get; set; }
+        (int S, int O) Hely { get; }
     }
 }

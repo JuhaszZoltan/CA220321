@@ -13,7 +13,21 @@ namespace CA220321
         public int Ehseg { get; set; }
         public bool Nem { get; set; }
         public bool El { get; set; }
-        public (int S, int O) Hely { get; set; }
+        public (int S, int O) Hely
+        {
+            get
+            {
+                for (int s = 0; s < this.Szavanna.Terulet.GetLength(0); s++)
+                {
+                    for (int o = 0; o < this.Szavanna.Terulet.GetLength(1); o++)
+                    {
+                        if (this.Szavanna.Terulet[s, o] == this)
+                            return (s, o);
+                    }
+                }
+                return (-1, -1);
+            }
+        }
         protected int EveSzaporodott { get; set; } = 0;
         public abstract bool Ivarerett { get; }
         public Szavanna Szavanna { get; set; }
@@ -86,7 +100,6 @@ namespace CA220321
                 int uresedo_s = this.Hely.S;
                 int uresedo_o = this.Hely.O;
                 this.Szavanna.Terulet[hova.s, hova.o] = this;
-                this.Hely = (hova.s, hova.o);
                 this.Szavanna.Terulet[uresedo_s, uresedo_o] = new Fu(uresedo_s,uresedo_o);
                 return true;
             }
@@ -95,7 +108,6 @@ namespace CA220321
 
         public Allat(int h_sor, int h_oszlop, Szavanna szavanna)
         {
-            this.Hely = (h_sor, h_oszlop);
             this.Szavanna = szavanna;
             this.Szavanna.Terulet[h_sor, h_oszlop] = this;
         }
